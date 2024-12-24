@@ -74,11 +74,19 @@ return {
                         }
                     }
                 end,
-                -- Java configuration
+                -- java configuration
                 jdtls = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.jdtls.setup {
                         capabilities = capabilities,
+                        settings = {
+                            java = {
+                                diagnostics = {
+                                    enable = true,
+                                    severity = "warning",  -- customize severity level as needed
+                                },
+                            },
+                        },
                     }
                 end,
                 -- C/C++ configuration
