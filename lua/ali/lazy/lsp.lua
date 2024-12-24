@@ -34,6 +34,8 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "gopls",
+                "jdtls", -- Java language server
+                "clangd", -- C/C++ language server
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -72,6 +74,20 @@ return {
                         }
                     }
                 end,
+                -- Java configuration
+                jdtls = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.jdtls.setup {
+                        capabilities = capabilities,
+                    }
+                end,
+                -- C/C++ configuration
+                clangd = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.clangd.setup {
+                        capabilities = capabilities,
+                    }
+                end,
             }
         })
 
@@ -88,6 +104,7 @@ return {
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
