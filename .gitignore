@@ -1,5 +1,3 @@
-# Ignore LazyVim lock and config files
-*.json
 
 # Ignore LOVE2D API (if not part of the project)
 love-api/
