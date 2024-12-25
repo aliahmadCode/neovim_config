@@ -1,0 +1,22 @@
+# Ignore LazyVim lock and config files
+lazy-lock.json
+lazyvim.json
+
+# Ignore LOVE2D API (if not part of the project)
+love-api/
+
+# Ignore Lua compiled files
+*.luac
+
+# Ignore Neovim swap, backup, and undo files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.~*
+.undodir/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+

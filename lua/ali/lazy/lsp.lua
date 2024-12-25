@@ -66,16 +66,17 @@ return {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
-                                runtime = { version = "Lua 5.1" },
+                                -- runtime = { version = "Lua 5.1" },
+                                runtime = { version = "LuaJIT" },
                                 diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
+                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "love" },
+                                },
+                                telemetry = { enable = false },                            }
                         }
                     }
                 end,
                 -- java configuration
-                jdtls = function()
+                ["jdtls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.jdtls.setup {
                         capabilities = capabilities,
@@ -90,7 +91,7 @@ return {
                     }
                 end,
                 -- C/C++ configuration
-                clangd = function()
+                ["clangd"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.clangd.setup {
                         capabilities = capabilities,
