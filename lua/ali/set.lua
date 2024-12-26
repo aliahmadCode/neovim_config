@@ -1,6 +1,6 @@
 vim.opt.guicursor = ""
 
-vim.opt.nu = true
+vim.opt.number = true
 vim.opt.relativenumber = false
 
 vim.opt.tabstop = 4
@@ -31,3 +31,4 @@ vim.opt.updatetime = 50
 vim.opt.clipboard = "unnamedplus"
 vim.opt.colorcolumn = "80"
 vim.opt.mouse = ""
+vim.opt.signcolumn = "no"

@@ -66,12 +66,17 @@ return {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
-                                -- runtime = { version = "Lua 5.1" },
                                 runtime = { version = "LuaJIT" },
                                 diagnostics = {
                                     globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "love" },
                                 },
-                                telemetry = { enable = false },                            }
+                                workspace = {
+                                    library = {
+                                       "/home/ali/third-party/love-api/",
+                                    },
+                                    checkThirdParty = false,
+                                    telemetry = { enable = false },                            }
+                            },
                         }
                     }
                 end,
@@ -125,6 +130,10 @@ return {
 
         vim.diagnostic.config({
             -- update_in_insert = true,
+            virtual_text = {
+                severity = { min = vim.diagnostic.severity.WARN }, -- Ignore spelling (INFO level)
+            },
+            underline = false,
             float = {
                 focusable = false,
                 style = "minimal",

@@ -3,7 +3,20 @@ return {
      config = function()
       require('mini.starter').setup({
         -- Your custom configuration here
-        header = 'Welcome to Neovim!',
+        header = [[
+
+        ▄▄▄       ██▓     ██▓
+       ▒████▄    ▓██▒    ▓██▒
+       ▒██  ▀█▄  ▒██░    ▒██▒          Z
+       ░██▄▄▄▄██ ▒██░    ░██░       Z
+        ▓█   ▓██▒░██████▒░██░    z
+        ▒▒   ▓▒█░░ ▒░▓  ░░▓    z
+         ▒   ▒▒ ░░ ░ ▒  ░ ▒ ░
+         ░   ▒     ░ ░    ▒ ░
+             ░  ░    ░  ░ ░
+
+
+        ]],
         items = {
           { name = 'New File', action = ':ene' },
           { name = 'Open File', action = ':e ' },
