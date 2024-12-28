@@ -106,7 +106,7 @@ return {
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
+        local luasnip = require'luasnip'
         cmp.setup({
             snippet = {
                 expand = function(args)
@@ -119,13 +119,29 @@ return {
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                ['<Tab>'] = cmp.mapping(function(fallback)
+                    if luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump()
+                    elseif cmp.visible() then
+                        cmp.select_next_item()
+                    else
+                        fallback()
+                    end
+                end, {'i', 's'}), -- Tab to jump to next argument
+                ['<S-Tab>'] = cmp.mapping(function(fallback)
+                    if luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end, {'i', 's'}), -- Shift+Tab to jump to previous argument
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
-                { name = 'buffer' },
-            })
+                    { name = 'buffer' },
+                })
         })
 
         vim.diagnostic.config({

@@ -4,8 +4,11 @@ return {
     config = function()
         require('lualine').setup({
             options = {
-                theme = 'gruvbox',  -- Choose your preferred theme
+                theme = 'gruvbox',
             },
-       })
+        })
+        vim.schedule(function ()
+            ColorMyPencils()
+        end)
     end
 }

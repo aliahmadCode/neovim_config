@@ -2,17 +2,34 @@ require("ali.set")
 require("ali.remap")
 require("ali.lazy_init")
 
--- DO.not
--- DO NOT INCLUDE THIS
-
--- If i want to keep doing lsp debugging
--- function restart_htmx_lsp()
---     require("lsp-debug-tools").restart({ expected = {}, name = "htmx-lsp", cmd = { "htmx-lsp", "--level", "DEBUG" }, root_dir = vim.loop.cwd(), });
--- end
-
--- DO NOT INCLUDE THIS
--- DO.not
-
+--[[
+-- Buffer and File Events:
+    "BufEnter": Triggered when entering a buffer.
+    "BufLeave": Triggered when leaving a buffer.
+    "BufWritePre": Before writing a buffer to a file.
+    "BufWritePost": After writing a buffer to a file.
+    "BufReadPre": Before reading a buffer.
+    "BufReadPost": After reading a buffer.
+-- Window Events:
+    "WinEnter": Triggered when entering a window.
+    "WinLeave": Triggered when leaving a window.
+-- Tab Events:
+    "TabEnter": Triggered when entering a tab page.
+    "TabLeave": Triggered when leaving a tab page.
+-- Cursor Events:
+    "CursorMoved": Triggered when the cursor moves.
+    "CursorMovedI": Triggered when the cursor moves in Insert mode.
+-- File Type and Syntax Events:
+    "FileType": Triggered when a file's type is detected.
+    "Syntax": Triggered when setting syntax.
+-- Editor Lifecycle Events:
+    "VimEnter": When Neovim starts.
+    "VimLeave": When Neovim is closing.
+-- Colorscheme Events:
+    "ColorScheme": After a colorscheme is applied.
+    "ColorSchemePre": Before a colorscheme is applied.
+--
+ ]]
 local augroup = vim.api.nvim_create_augroup
 local AliGroup = augroup('Ali', {})
 
@@ -79,3 +96,26 @@ autocmd('LspAttach', {
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
+
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*.pdf",
+    callback = function ()
+        local filepath = vim.fn.expand("%:p")
+        vim.fn.jobstart({"evince", filepath}, {detach = true})
+        vim.cmd("bd")
+    end
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = { "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.tiff" },
+    callback = function ()
+        local filepath = vim.fn.expand("%:p")
+        vim.fn.jobstart({"ristretto", filepath}, {detach = true})
+        vim.cmd("bd")
+    end
+})
+
+-- Set the default statusline with time in 12-hour format and custom name "Ali"
+vim.opt.statusline = 'Ali %f %y %m %= %l,%c %{strftime("%I:%M:%S %p")}'
+
