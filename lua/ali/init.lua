@@ -117,5 +117,5 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Set the default statusline with time in 12-hour format and custom name "Ali"
-vim.opt.statusline = 'Ali %f %y %m %= %l,%c %{strftime("%I:%M:%S %p")}'
+vim.opt.statusline = ' © ali %f %y %m %= %l,%c %{strftime("%I:%M:%S %p")}'
 

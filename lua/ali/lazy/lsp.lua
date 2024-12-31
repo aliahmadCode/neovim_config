@@ -71,17 +71,14 @@ return {
                                     globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "love" },
                                 },
                                 workspace = {
-                                    library = {
-                                       "/home/ali/third-party/love-api/",
-                                    },
-                                    checkThirdParty = false,
+                                   checkThirdParty = false,
                                     telemetry = { enable = false },                            }
                             },
                         }
                     }
                 end,
                 -- java configuration
-                ["jdtls"] = function()
+                jdtls = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.jdtls.setup {
                         capabilities = capabilities,
@@ -96,7 +93,7 @@ return {
                     }
                 end,
                 -- C/C++ configuration
-                ["clangd"] = function()
+                clangd = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.clangd.setup {
                         capabilities = capabilities,
