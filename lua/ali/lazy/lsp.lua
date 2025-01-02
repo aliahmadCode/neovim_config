@@ -36,6 +36,7 @@ return {
                 "gopls",
                 "jdtls", -- Java language server
                 "clangd", -- C/C++ language server
+                "asm_lsp",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -98,6 +99,18 @@ return {
                     lspconfig.clangd.setup {
                         capabilities = capabilities,
                     }
+                end,
+                asm_lsp = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.asm_lsp.setup({
+                        capabilities = capabilities,
+                        filetypes = { "asm", "s", "S" },
+                        root_dir = function(fname)
+                            return lspconfig.util.find_git_ancestor(fname) or
+                                lspconfig.util.path.dirname(fname)
+                        end,
+                        cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/asm-lsp") }
+                    })
                 end,
             }
         })
