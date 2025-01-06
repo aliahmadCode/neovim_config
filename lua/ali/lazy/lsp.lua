@@ -11,7 +11,9 @@ return {
         "hrsh7th/nvim-cmp",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
+        "rafamadriz/friendly-snippets",
         "j-hui/fidget.nvim",
+        "norcalli/nvim-colorizer.lua",
     },
 
     config = function()
@@ -37,6 +39,10 @@ return {
                 "jdtls", -- Java language server
                 "clangd", -- C/C++ language server
                 "asm_lsp",
+                "html",
+                "cssls",
+                "tailwindcss",
+                "eslint",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -112,11 +118,52 @@ return {
                         cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/asm-lsp") }
                     })
                 end,
+                html = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.html.setup {
+                        capabilities = capabilities,
+                    }
+                end,
+                cssls = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.cssls.setup {
+                        capabilities = capabilities,
+                    }
+                end,
+                tailwindcss = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.tailwindcss.setup {
+                        capabilities = capabilities,
+                    }
+                end,
+               eslint = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.eslint.setup {
+                        capabilities = capabilities,
+                    }
+                end,
+
             }
+        })
+
+        require("colorizer").setup({
+            "css", "scss", "html", -- Enable for these file types
+            lua = {
+                RGB      = true, -- #RGB hex codes
+                RRGGBB   = true, -- #RRGGBB hex codes
+                names    = true, -- Color names like 'red'
+                RRGGBBAA = true, -- #RRGGBBAA hex codes
+                rgb_fn   = true, -- CSS rgb() and rgba() functions
+                hsl_fn   = true, -- CSS hsl() and hsla() functions
+                css      = true, -- Enable all CSS features
+                css_fn   = true, -- Enable all CSS *functions*
+            },
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
         local luasnip = require'luasnip'
+        require('luasnip.loaders.from_vscode').lazy_load()
+
         cmp.setup({
             snippet = {
                 expand = function(args)
@@ -128,7 +175,7 @@ return {
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
-                -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
                 ['<Tab>'] = cmp.mapping(function(fallback)
                     if luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
