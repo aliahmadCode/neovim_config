@@ -100,29 +100,28 @@ vim.g.netrw_winsize = 25
 
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = "*.pdf",
-    callback = function ()
+    callback = function()
         local filepath = vim.fn.expand("%:p")
-        vim.fn.jobstart({"evince", filepath}, {detach = true})
+        vim.fn.jobstart({ "evince", filepath }, { detach = true })
         vim.cmd("bd")
     end
 })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = { "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.tiff" },
-    callback = function ()
+    callback = function()
         local filepath = vim.fn.expand("%:p") -- gives me the complete path of the current file
-        vim.fn.jobstart({"ristretto", filepath}, {detach = true})
+        vim.fn.jobstart({ "ristretto", filepath }, { detach = true })
         vim.cmd("bd")
     end
 })
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = { "*.md" },
-    callback = function ()
+    callback = function()
         vim.cmd("MarkdownPreview")
     end
 })
 
 
 -- Set the default statusline with time in 12-hour format and custom name "Ali"
-vim.opt.statusline = ' © ali %f %y %m %= %l,%c %{strftime("%I:%M:%S %p")}'
-
+vim.opt.statusline = ' © ali %f %y %m %= %l,%c %{strftime("%I:%M %p")}'

@@ -14,6 +14,8 @@ return {
         "rafamadriz/friendly-snippets",
         "j-hui/fidget.nvim",
         "norcalli/nvim-colorizer.lua",
+        "windwp/nvim-autopairs",
+        "windwp/nvim-ts-autotag",
     },
 
     config = function()
@@ -43,12 +45,35 @@ return {
                 "cssls",
                 "tailwindcss",
                 "eslint",
+                "ts_ls", -- TypeScript/JSX language server
             },
+            require("lspconfig").ts_ls.setup({
+                capabilities = capabilities,
+                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+            }),
+
+
             handlers = {
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
+                end,
+
+                -- Add specific ts_ls configuration outside the handlers table
+                ["ts_ls"] = function()
+                    require("lspconfig").ts_ls.setup({
+                        capabilities = capabilities,
+                        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+                        init_options = {
+                            jsx = {
+                                autoClosingTags = true,
+                            },
+                            tsx = {
+                                autoClosingTags = true,
+                            },
+                        },
+                    })
                 end,
 
                 zls = function()
@@ -78,7 +103,7 @@ return {
                                     globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "love" },
                                 },
                                 workspace = {
-                                   checkThirdParty = false,
+                                    checkThirdParty = false,
                                     telemetry = { enable = false },                            }
                             },
                         }
@@ -136,7 +161,7 @@ return {
                         capabilities = capabilities,
                     }
                 end,
-               eslint = function()
+                eslint = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.eslint.setup {
                         capabilities = capabilities,
@@ -144,6 +169,29 @@ return {
                 end,
 
             }
+        })
+
+        -- Modified nvim-autopairs setup with TSX/JSX support
+        local npairs = require("nvim-autopairs")
+        npairs.setup({
+            check_ts = true, -- Enable treesitter
+            ts_config = {
+                javascript = { 'template_string' },
+                javascriptreact = { 'template_string', 'jsx_element' },
+                typescript = { 'template_string' },
+                typescriptreact = { 'template_string', 'jsx_element' },
+            },
+            enable_check_bracket_line = true,
+            fast_wrap = {
+                map = '<M-e>',
+                chars = { '{', '[', '(', '"', "'" },
+                pattern = [=[[%'%"%>%]%)%}%,]]=],
+                end_key = '$',
+                keys = 'qwertyuiopzxcvbnmasdfghjkl',
+                check_comma = true,
+                highlight = 'Search',
+                highlight_grey='Comment'
+            },
         })
 
         require("colorizer").setup({
@@ -200,6 +248,27 @@ return {
                     { name = 'buffer' },
                 })
         })
+        require('nvim-ts-autotag').setup({
+            opts = {
+                -- Defaults
+                enable_close = true, -- Auto close tags
+                enable_rename = true, -- Auto rename pairs of tags
+                enable_close_on_slash = false -- Auto close on trailing </
+            },
+            -- Also override individual filetype configs, these take priority.
+            -- Empty by default, useful if one of the "opts" global settings
+            -- doesn't work well in a specific filetype
+            per_filetype = {
+                ["html"] = {
+                    enable_close = false
+                }
+            }
+        })
+        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+        -- nvim-autopairs setup
+        require("nvim-autopairs").setup()
 
         vim.diagnostic.config({
             -- update_in_insert = true,

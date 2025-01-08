@@ -17,7 +17,9 @@ return {
         -- the same key map
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<leader><leader>', function()
-            require('telescope').extensions.file_browser.file_browser()
+            require('telescope').extensions.file_browser.file_browser({
+                cwd = vim.fn.expand('%:p:h')
+            })
         end)
 
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})
@@ -34,9 +36,8 @@ return {
         end)
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
 
-        vim.schedule(function ()
+        vim.schedule(function()
             ColorMyPencils()
         end)
-
-   end
+    end
 }
