@@ -1,6 +1,7 @@
 vim.g.mapleader = ";"
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
-vim.keymap.set("n", "<C-s>", ":w<CR>:lua vim.lsp.buf.format()<CR>")
+vim.keymap.set("n", "<C-s>", ":w<CR>=G<CR>")
+vim.keymap.set("n", "<S-t>", ":lua vim.lsp.buf.format()<CR>")
 
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -48,16 +49,16 @@ vim.keymap.set("n", "sl", "<C-w>l")
 
 -- thanks lua
 function resize_window(direction)
-    local amount = 2
-    if direction == "up" then
-        vim.cmd("resize -" .. amount)
-    elseif direction == "down" then
-        vim.cmd("resize +" .. amount)
-    elseif direction == "left" then
-        vim.cmd("vertical resize +" .. amount)
-    elseif direction == "right" then
-        vim.cmd("vertical resize -" .. amount)
-    end
+  local amount = 2
+  if direction == "up" then
+    vim.cmd("resize -" .. amount)
+  elseif direction == "down" then
+    vim.cmd("resize +" .. amount)
+  elseif direction == "left" then
+    vim.cmd("vertical resize +" .. amount)
+  elseif direction == "right" then
+    vim.cmd("vertical resize -" .. amount)
+  end
 end
 
 vim.keymap.set("n", "<C-l>", function() resize_window("left") end)
@@ -67,27 +68,27 @@ vim.keymap.set("n", "<C-j>", function() resize_window("down") end)
 
 
 vim.keymap.set(
-    "n",
-    "<leader>ee",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
+  "n",
+  "<leader>ee",
+  "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 
 vim.keymap.set(
-    "n",
-    "<leader>ea",
-    "oassert.NoError(err, \"\")<Esc>F\";a"
+  "n",
+  "<leader>ea",
+  "oassert.NoError(err, \"\")<Esc>F\";a"
 )
 
 vim.keymap.set(
-    "n",
-    "<leader>ef",
-    "oif err != nil {<CR>}<Esc>Olog.Fatalf(\"error: %s\\n\", err.Error())<Esc>jj"
+  "n",
+  "<leader>ef",
+  "oif err != nil {<CR>}<Esc>Olog.Fatalf(\"error: %s\\n\", err.Error())<Esc>jj"
 )
 
 vim.keymap.set(
-    "n",
-    "<leader>el",
-    "oif err != nil {<CR>}<Esc>O.logger.Error(\"error\", \"error\", err)<Esc>F.;i"
+  "n",
+  "<leader>el",
+  "oif err != nil {<CR>}<Esc>O.logger.Error(\"error\", \"error\", err)<Esc>F.;i"
 )
 
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/ali/packer.lua<CR>");
