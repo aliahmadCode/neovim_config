@@ -38,7 +38,7 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "gopls",
-                "jdtls", -- Java language server
+                "jdtls",  -- Java language server
                 "clangd", -- C/C++ language server
                 "asm_lsp",
                 "html",
@@ -90,7 +90,6 @@ return {
                     })
                     vim.g.zig_fmt_parse_errors = 0
                     vim.g.zig_fmt_autosave = 0
-
                 end,
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
@@ -104,7 +103,7 @@ return {
                                 },
                                 workspace = {
                                     checkThirdParty = false,
-                                    telemetry = { enable = false },                            }
+                                    telemetry = { enable = false }, }
                             },
                         }
                     }
@@ -118,7 +117,7 @@ return {
                             java = {
                                 diagnostics = {
                                     enable = true,
-                                    severity = "warning",  -- customize severity level as needed
+                                    severity = "warning", -- customize severity level as needed
                                 },
                             },
                         },
@@ -190,12 +189,14 @@ return {
                 keys = 'qwertyuiopzxcvbnmasdfghjkl',
                 check_comma = true,
                 highlight = 'Search',
-                highlight_grey='Comment'
+                highlight_grey = 'Comment'
             },
         })
 
         require("colorizer").setup({
-            "css", "scss", "html", -- Enable for these file types
+            "css",
+            "scss",
+            "html",              -- Enable for these file types
             lua = {
                 RGB      = true, -- #RGB hex codes
                 RRGGBB   = true, -- #RRGGBB hex codes
@@ -209,7 +210,7 @@ return {
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
-        local luasnip = require'luasnip'
+        local luasnip = require 'luasnip'
         require('luasnip.loaders.from_vscode').lazy_load()
 
         cmp.setup({
@@ -223,7 +224,7 @@ return {
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                --[[ ['<CR>'] = cmp.mapping.confirm({ select = true }), ]]
                 ['<Tab>'] = cmp.mapping(function(fallback)
                     if luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
@@ -232,27 +233,27 @@ return {
                     else
                         fallback()
                     end
-                end, {'i', 's'}), -- Tab to jump to next argument
+                end, { 'i', 's' }), -- Tab to jump to next argument
                 ['<S-Tab>'] = cmp.mapping(function(fallback)
                     if luasnip.jumpable(-1) then
                         luasnip.jump(-1)
                     else
                         fallback()
                     end
-                end, {'i', 's'}), -- Shift+Tab to jump to previous argument
+                end, { 'i', 's' }), -- Shift+Tab to jump to previous argument
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
-                    { name = 'buffer' },
-                })
+                { name = 'buffer' },
+            })
         })
         require('nvim-ts-autotag').setup({
             opts = {
                 -- Defaults
-                enable_close = true, -- Auto close tags
-                enable_rename = true, -- Auto rename pairs of tags
+                enable_close = true,          -- Auto close tags
+                enable_rename = true,         -- Auto rename pairs of tags
                 enable_close_on_slash = false -- Auto close on trailing </
             },
             -- Also override individual filetype configs, these take priority.

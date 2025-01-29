@@ -111,7 +111,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = { "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.tiff" },
     callback = function()
         local filepath = vim.fn.expand("%:p") -- gives me the complete path of the current file
-        vim.fn.jobstart({ "ristretto", filepath }, { detach = true })
+        vim.fn.jobstart({ "display", filepath }, { detach = true })
         vim.cmd("bd")
     end
 })

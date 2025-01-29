@@ -15,8 +15,8 @@ return {
         local builtin = require('telescope.builtin')
 
         -- the same key map
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-        vim.keymap.set('n', '<leader><leader>', function()
+        vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+        vim.keymap.set('n', '<leader>;', function()
             require('telescope').extensions.file_browser.file_browser({
                 cwd = vim.fn.expand('%:p:h')
             })
