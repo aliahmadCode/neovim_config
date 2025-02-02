@@ -1,7 +1,6 @@
 vim.g.mapleader = ";"
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
-vim.keymap.set("n", "<C-s>", ":w<CR>=G<CR>")
-vim.keymap.set("n", "<S-t>", ":lua vim.lsp.buf.format()<CR>")
+vim.keymap.set("n", "<C-s>", ":w<CR>:lua vim.lsp.buf.format()<CR>")
 
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
