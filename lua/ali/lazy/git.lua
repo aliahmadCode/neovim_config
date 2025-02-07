@@ -1,5 +1,9 @@
+
 return {
+
   {
+    -- some new lines
+    -- for checking stage_hunk in the Gitsings
     "lewis6991/gitsigns.nvim",
     opts = {
       signs                        = {
@@ -25,10 +29,11 @@ return {
       word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
       watch_gitdir                 = {
         follow_files = true
+
       },
       auto_attach                  = true,
       attach_to_untracked          = false,
-      current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      current_line_blame           = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
       current_line_blame_opts      = {
         virt_text = true,
         virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
@@ -51,6 +56,11 @@ return {
         row = 0,
         col = 1
       },
+      on_attach                    = function()
+        vim.cmd("highlight GitSignsAdd guifg=" .. "#81b88b")
+        vim.cmd("highlight GitSignsChange guifg=" .. "#e2c08d")
+        vim.cmd("highlight GitSignsDelete guifg=" .. "#f97583")
+      end,
 
     },
   },

@@ -38,14 +38,14 @@ return {
         "lua_ls",
         "rust_analyzer",
         "gopls",
-        "jdtls",          -- Java language server
-        "clangd",         -- C/C++ language server
+        "jdtls",  -- Java language server
+        "clangd", -- C/C++ language server
         "asm_lsp",
         "html",
         "cssls",
         "tailwindcss",
         "eslint",
-        "ts_ls",         -- TypeScript/JSX language server
+        "ts_ls", -- TypeScript/JSX language server
       },
       require("lspconfig").ts_ls.setup({
         capabilities = capabilities,
@@ -54,7 +54,7 @@ return {
 
 
       handlers = {
-        function(server_name)         -- default handler (optional)
+        function(server_name) -- default handler (optional)
           require("lspconfig")[server_name].setup {
             capabilities = capabilities
           }
@@ -117,7 +117,7 @@ return {
               java = {
                 diagnostics = {
                   enable = true,
-                  severity = "warning",                   -- customize severity level as needed
+                  severity = "warning", -- customize severity level as needed
                 },
               },
             },
@@ -173,7 +173,7 @@ return {
     -- Modified nvim-autopairs setup with TSX/JSX support
     local npairs = require("nvim-autopairs")
     npairs.setup({
-      check_ts = true,       -- Enable treesitter
+      check_ts = true, -- Enable treesitter
       ts_config = {
         javascript = { 'template_string' },
         javascriptreact = { 'template_string', 'jsx_element' },
@@ -196,16 +196,16 @@ return {
     require("colorizer").setup({
       "css",
       "scss",
-      "html",                    -- Enable for these file types
+      "html",            -- Enable for these file types
       lua = {
-        RGB      = true,         -- #RGB hex codes
-        RRGGBB   = true,         -- #RRGGBB hex codes
-        names    = true,         -- Color names like 'red'
-        RRGGBBAA = true,         -- #RRGGBBAA hex codes
-        rgb_fn   = true,         -- CSS rgb() and rgba() functions
-        hsl_fn   = true,         -- CSS hsl() and hsla() functions
-        css      = true,         -- Enable all CSS features
-        css_fn   = true,         -- Enable all CSS *functions*
+        RGB      = true, -- #RGB hex codes
+        RRGGBB   = true, -- #RRGGBB hex codes
+        names    = true, -- Color names like 'red'
+        RRGGBBAA = true, -- #RRGGBBAA hex codes
+        rgb_fn   = true, -- CSS rgb() and rgba() functions
+        hsl_fn   = true, -- CSS hsl() and hsla() functions
+        css      = true, -- Enable all CSS features
+        css_fn   = true, -- Enable all CSS *functions*
       },
     })
 
@@ -216,7 +216,7 @@ return {
     cmp.setup({
       snippet = {
         expand = function(args)
-          require('luasnip').lsp_expand(args.body)           -- For `luasnip` users.
+          require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
         end,
       },
       mapping = cmp.mapping.preset.insert({
@@ -233,18 +233,18 @@ return {
           else
             fallback()
           end
-        end, { 'i', 's' }),         -- Tab to jump to next argument
+        end, { 'i', 's' }), -- Tab to jump to next argument
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
             fallback()
           end
-        end, { 'i', 's' }),         -- Shift+Tab to jump to previous argument
+        end, { 'i', 's' }), -- Shift+Tab to jump to previous argument
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'luasnip' },         -- For luasnip users.
+        { name = 'luasnip' }, -- For luasnip users.
       }, {
         { name = 'buffer' },
       })
@@ -252,9 +252,9 @@ return {
     require('nvim-ts-autotag').setup({
       opts = {
         -- Defaults
-        enable_close = true,                  -- Auto close tags
-        enable_rename = true,                 -- Auto rename pairs of tags
-        enable_close_on_slash = false         -- Auto close on trailing </
+        enable_close = true,          -- Auto close tags
+        enable_rename = true,         -- Auto rename pairs of tags
+        enable_close_on_slash = false -- Auto close on trailing </
       },
       -- Also override individual filetype configs, these take priority.
       -- Empty by default, useful if one of the "opts" global settings
@@ -272,9 +272,10 @@ return {
     require("nvim-autopairs").setup()
 
     vim.diagnostic.config({
-      -- update_in_insert = true,
+      update_in_insert = true,
+      signs = false,
       virtual_text = {
-        severity = { min = vim.diagnostic.severity.WARN },         -- Ignore spelling (INFO level)
+        severity = { min = vim.diagnostic.severity.WARN }, -- Ignore spelling (INFO level)
       },
       underline = false,
       float = {
