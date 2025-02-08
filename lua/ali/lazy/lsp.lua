@@ -13,7 +13,6 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "rafamadriz/friendly-snippets",
     "j-hui/fidget.nvim",
-    "norcalli/nvim-colorizer.lua",
     "windwp/nvim-autopairs",
     "windwp/nvim-ts-autotag",
   },
@@ -117,8 +116,7 @@ return {
               java = {
                 diagnostics = {
                   enable = true,
-                  severity = "warning", -- customize severity level as needed
-                },
+                  severity = "warning", },
               },
             },
           }
@@ -190,22 +188,6 @@ return {
         check_comma = true,
         highlight = 'Search',
         highlight_grey = 'Comment'
-      },
-    })
-
-    require("colorizer").setup({
-      "css",
-      "scss",
-      "html",            -- Enable for these file types
-      lua = {
-        RGB      = true, -- #RGB hex codes
-        RRGGBB   = true, -- #RRGGBB hex codes
-        names    = true, -- Color names like 'red'
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn   = true, -- CSS rgb() and rgba() functions
-        hsl_fn   = true, -- CSS hsl() and hsla() functions
-        css      = true, -- Enable all CSS features
-        css_fn   = true, -- Enable all CSS *functions*
       },
     })
 

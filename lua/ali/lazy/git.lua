@@ -1,4 +1,3 @@
-
 return {
 
   {
@@ -57,9 +56,9 @@ return {
         col = 1
       },
       on_attach                    = function()
-        vim.cmd("highlight GitSignsAdd guifg=" .. "#81b88b")
-        vim.cmd("highlight GitSignsChange guifg=" .. "#e2c08d")
-        vim.cmd("highlight GitSignsDelete guifg=" .. "#f97583")
+        vim.cmd("highlight GitSignsAdd guifg=#6A9955")
+        vim.cmd("highlight GitSignsChange guifg=#D0A832")
+        vim.cmd("highlight GitSignsDelete guifg=#F44747")
       end,
 
     },
