@@ -55,14 +55,17 @@ return {
         row = 0,
         col = 1
       },
+
       on_attach                    = function()
-        vim.cmd("highlight GitSignsAdd guifg=#6A9955")
-        vim.cmd("highlight GitSignsChange guifg=#D0A832")
+        vim.cmd("highlight GitSignsAdd guifg=#004d00")
+        vim.cmd("highlight GitSignsChange guifg=#4D3600")
         vim.cmd("highlight GitSignsDelete guifg=#F44747")
       end,
 
     },
+
   },
+
 
 
 
