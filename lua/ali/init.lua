@@ -124,5 +124,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#004d00" })
+    vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#4D3600" })
+    vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#F44747" })
+  end,
+})
+
 -- Set the default statusline with time in 12-hour format and custom name "Ali"
 vim.opt.statusline = ' © ali %f %y %m %= %l,%c %{strftime("%I:%M %p")}'
