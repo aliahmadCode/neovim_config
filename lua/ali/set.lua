@@ -29,6 +29,6 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 vim.opt.clipboard = "unnamedplus"
-vim.opt.colorcolumn = "80"
---[[ vim.opt.mouse = "" ]]
+vim.opt.colorcolumn = "100"
+vim.opt.mouse = ""
 vim.opt.signcolumn = "yes"

@@ -254,7 +254,7 @@ return {
     require("nvim-autopairs").setup()
 
     vim.diagnostic.config({
-      update_in_insert = true,
+      update_in_insert = false,
       signs = false,
       virtual_text = {
         severity = { min = vim.diagnostic.severity.WARN }, -- Ignore spelling (INFO level)
